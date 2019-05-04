@@ -1,4 +1,4 @@
-from comm import comm_pb2 as comm
+import comm_pb2 as comm
 import serial
 from serial.tools import list_ports
 from cobs import cobs
@@ -9,14 +9,14 @@ class Controller:
 
     def __init__(self, data_callback: Callable):
         self.data_callback = data_callback
-        # self.connection = SerialConnection()
-        # self.connection.connect()
+        self.connection = SerialConnection()
+        self.connection.connect()
 
         pass
 
-    @staticmethod
-    def output(rx: comm.RxMicro):
+    def output(self, rx: comm.RxMicro):
         print(rx)
+        self.connection.send_packet(rx)
 
     def control_rail(self, rail_number, state: int):
         message = comm.RxMicro()
@@ -25,22 +25,22 @@ class Controller:
         self.output(message)
 
     def input(self, tx: comm.TxMicro):
-        if tx.HasField("powerRailInfo"):
-            voltage_data = [None] * 8
-            current_data = [None] * 8
-            for powerRailInfo in tx.powerRailInfo:
-                voltage_data[powerRailInfo.powerRail] = powerRailInfo.voltage
-                current_data[powerRailInfo.powerRail] = powerRailInfo.current
 
-            voltage_data[0] = 0
-            for i in voltage_data[1:]:
-                voltage_data[0] += i
+        voltage_data = [None] * (len(tx.powerRailInfo)+1)
+        current_data = [None] * (len(tx.powerRailInfo)+1)
+        for powerRailInfo in tx.powerRailInfo:
+            voltage_data[powerRailInfo.powerRail] = powerRailInfo.voltage
+            current_data[powerRailInfo.powerRail] = powerRailInfo.current
 
-            current_data[0] = 0
-            for i in current_data[1:]:
-                current_data[0] += i
+        voltage_data[0] = 0
+        for i in voltage_data[1:]:
+            voltage_data[0] += i
 
-            self.data_callback(voltage_data, current_data)
+        current_data[0] = 0
+        for i in current_data[1:]:
+            current_data[0] += i
+
+        self.data_callback(voltage_data, current_data)
 
         if tx.HasField("powerEvent"):
             # TODO: add some kind of dialog in the future
@@ -48,12 +48,11 @@ class Controller:
 
     def read_loop(self):
         while True:
-            pass
-            # self.input(self.connection.read_packet())
+            self.input(self.connection.read_packet())
+
 
 def get_serial_port():
-    return "TEST SERIAL PORT"
-    # return list(list_ports.grep("USB"))[0].device
+    return list(list_ports.grep("USB"))[0].device
 
 class SerialConnection:
 
@@ -82,9 +81,21 @@ class SerialConnection:
         return self.ser.write(cobs.encode(rx.SerializeToString()) + b'\x00')
 
 
-if __name__ == '__main__':
+
+
+def serial_test():
     sc = SerialConnection()
     sc.connect()
-    a = comm.RxMicro()
-    a.powerControl.powerRail = 1
-    sc.send_packet(a)
+    while True:
+        print(sc.read_packet())
+
+def controller_test():
+    def callback_test(*kwargs):
+        print(kwargs)
+
+    c = Controller(callback_test)
+    c.read_loop()
+
+
+if __name__ == '__main__':
+    controller_test()

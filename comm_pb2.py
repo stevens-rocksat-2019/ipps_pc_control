@@ -14,6 +14,7 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+import nanopb_pb2 as nanopb__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -21,8 +22,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto2',
   serialized_options=None,
-  serialized_pb=_b('\n\ncomm.proto\"\xcd\x01\n\x11RailConfiguration\x12\x11\n\tpowerRail\x18\x01 \x02(\x05\x12\x14\n\x0c\x63urrentLimit\x18\x02 \x01(\x02\x12\x15\n\rvoltageCutoff\x18\x03 \x01(\x02\x12\x1b\n\x13\x63urrentLimitEnabled\x18\x04 \x01(\x08\x12\x1b\n\x13voltageLimitEnabled\x18\x05 \x01(\x08\x12\x11\n\ttimeLimit\x18\x06 \x01(\x03\x12\x18\n\x10timeLimitEnabled\x18\x07 \x01(\x08\x12\x11\n\tdutyCycle\x18\x08 \x01(\x02\"C\n\x12PowerConfiguration\x12-\n\x11railConfiguration\x18\x01 \x03(\x0b\x32\x12.RailConfiguration\"B\n\x0cPowerControl\x12\x11\n\tpowerRail\x18\x01 \x01(\x05\x12\x1f\n\npowerState\x18\x02 \x01(\x0e\x32\x0b.PowerState\"R\n\rPowerRailInfo\x12\x0f\n\x07voltage\x18\x01 \x01(\x02\x12\x0f\n\x07\x63urrent\x18\x02 \x01(\x02\x12\x1f\n\npowerState\x18\x03 \x01(\x0e\x32\x0b.PowerState\"\xb1\x01\n\nPowerEvent\x12\x11\n\tpowerRail\x18\x01 \x01(\x05\x12(\n\teventType\x18\x02 \x01(\x0e\x32\x15.PowerEvent.EventType\"f\n\tEventType\x12\n\n\x06NORMAL\x10\x00\x12\x13\n\x0f\x43URRENT_LIMITED\x10\x01\x12\x13\n\x0fVOLTAGE_LIMITED\x10\x02\x12\x11\n\rPOWER_LIMITED\x10\x03\x12\x10\n\x0cTIME_LIMITED\x10\x04\"d\n\x07TxMicro\x12\x11\n\ttimeStamp\x18\x01 \x01(\x03\x12%\n\rpowerRailInfo\x18\x02 \x03(\x0b\x32\x0e.PowerRailInfo\x12\x1f\n\npowerEvent\x18\x03 \x01(\x0b\x32\x0b.PowerEvent\"_\n\x07RxMicro\x12/\n\x12powerConfiguration\x18\x01 \x01(\x0b\x32\x13.PowerConfiguration\x12#\n\x0cpowerControl\x18\x02 \x01(\x0b\x32\r.PowerControl*(\n\nPowerState\x12\x07\n\x03OFF\x10\x00\x12\x06\n\x02ON\x10\x01\x12\t\n\x05\x45RROR\x10\x03')
-)
+  serialized_pb=_b('\n\ncomm.proto\x1a\x0cnanopb.proto\"\xcd\x01\n\x11RailConfiguration\x12\x11\n\tpowerRail\x18\x01 \x02(\x05\x12\x14\n\x0c\x63urrentLimit\x18\x02 \x01(\x02\x12\x15\n\rvoltageCutoff\x18\x03 \x01(\x02\x12\x1b\n\x13\x63urrentLimitEnabled\x18\x04 \x01(\x08\x12\x1b\n\x13voltageLimitEnabled\x18\x05 \x01(\x08\x12\x11\n\ttimeLimit\x18\x06 \x01(\x03\x12\x18\n\x10timeLimitEnabled\x18\x07 \x01(\x08\x12\x11\n\tdutyCycle\x18\x08 \x01(\x02\"C\n\x12PowerConfiguration\x12-\n\x11railConfiguration\x18\x01 \x03(\x0b\x32\x12.RailConfiguration\"B\n\x0cPowerControl\x12\x11\n\tpowerRail\x18\x01 \x01(\x05\x12\x1f\n\npowerState\x18\x02 \x01(\x0e\x32\x0b.PowerState\"e\n\rPowerRailInfo\x12\x11\n\tpowerRail\x18\x01 \x01(\x05\x12\x0f\n\x07voltage\x18\x02 \x01(\x02\x12\x0f\n\x07\x63urrent\x18\x03 \x01(\x02\x12\x1f\n\npowerState\x18\x04 \x01(\x0e\x32\x0b.PowerState\"\xb1\x01\n\nPowerEvent\x12\x11\n\tpowerRail\x18\x01 \x01(\x05\x12(\n\teventType\x18\x02 \x01(\x0e\x32\x15.PowerEvent.EventType\"f\n\tEventType\x12\n\n\x06NORMAL\x10\x00\x12\x13\n\x0f\x43URRENT_LIMITED\x10\x01\x12\x13\n\x0fVOLTAGE_LIMITED\x10\x02\x12\x11\n\rPOWER_LIMITED\x10\x03\x12\x10\n\x0cTIME_LIMITED\x10\x04\"k\n\x07TxMicro\x12\x11\n\ttimeStamp\x18\x01 \x01(\x03\x12,\n\rpowerRailInfo\x18\x02 \x03(\x0b\x32\x0e.PowerRailInfoB\x05\x92?\x02\x10\n\x12\x1f\n\npowerEvent\x18\x03 \x01(\x0b\x32\x0b.PowerEvent\"_\n\x07RxMicro\x12/\n\x12powerConfiguration\x18\x01 \x01(\x0b\x32\x13.PowerConfiguration\x12#\n\x0cpowerControl\x18\x02 \x01(\x0b\x32\r.PowerControl*(\n\nPowerState\x12\x07\n\x03OFF\x10\x00\x12\x06\n\x02ON\x10\x01\x12\t\n\x05\x45RROR\x10\x03')
+  ,
+  dependencies=[nanopb__pb2.DESCRIPTOR,])
 
 _POWERSTATE = _descriptor.EnumDescriptor(
   name='PowerState',
@@ -45,8 +47,8 @@ _POWERSTATE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=822,
-  serialized_end=862,
+  serialized_start=862,
+  serialized_end=902,
 )
 _sym_db.RegisterEnumDescriptor(_POWERSTATE)
 
@@ -85,8 +87,8 @@ _POWEREVENT_EVENTTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=519,
-  serialized_end=621,
+  serialized_start=552,
+  serialized_end=654,
 )
 _sym_db.RegisterEnumDescriptor(_POWEREVENT_EVENTTYPE)
 
@@ -166,8 +168,8 @@ _RAILCONFIGURATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=15,
-  serialized_end=220,
+  serialized_start=29,
+  serialized_end=234,
 )
 
 
@@ -197,8 +199,8 @@ _POWERCONFIGURATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=222,
-  serialized_end=289,
+  serialized_start=236,
+  serialized_end=303,
 )
 
 
@@ -235,8 +237,8 @@ _POWERCONTROL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=291,
-  serialized_end=357,
+  serialized_start=305,
+  serialized_end=371,
 )
 
 
@@ -248,22 +250,29 @@ _POWERRAILINFO = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='voltage', full_name='PowerRailInfo.voltage', index=0,
-      number=1, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
+      name='powerRail', full_name='PowerRailInfo.powerRail', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='current', full_name='PowerRailInfo.current', index=1,
+      name='voltage', full_name='PowerRailInfo.voltage', index=1,
       number=2, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='powerState', full_name='PowerRailInfo.powerState', index=2,
-      number=3, type=14, cpp_type=8, label=1,
+      name='current', full_name='PowerRailInfo.current', index=2,
+      number=3, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='powerState', full_name='PowerRailInfo.powerState', index=3,
+      number=4, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -280,8 +289,8 @@ _POWERRAILINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=359,
-  serialized_end=441,
+  serialized_start=373,
+  serialized_end=474,
 )
 
 
@@ -319,8 +328,8 @@ _POWEREVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=444,
-  serialized_end=621,
+  serialized_start=477,
+  serialized_end=654,
 )
 
 
@@ -344,7 +353,7 @@ _TXMICRO = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=_b('\222?\002\020\n'), file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='powerEvent', full_name='TxMicro.powerEvent', index=2,
       number=3, type=11, cpp_type=10, label=1,
@@ -364,8 +373,8 @@ _TXMICRO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=623,
-  serialized_end=723,
+  serialized_start=656,
+  serialized_end=763,
 )
 
 
@@ -402,8 +411,8 @@ _RXMICRO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=725,
-  serialized_end=820,
+  serialized_start=765,
+  serialized_end=860,
 )
 
 _POWERCONFIGURATION.fields_by_name['railConfiguration'].message_type = _RAILCONFIGURATION
@@ -475,4 +484,5 @@ RxMicro = _reflection.GeneratedProtocolMessageType('RxMicro', (_message.Message,
 _sym_db.RegisterMessage(RxMicro)
 
 
+_TXMICRO.fields_by_name['powerRailInfo']._options = None
 # @@protoc_insertion_point(module_scope)

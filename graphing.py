@@ -87,16 +87,18 @@ class GraphWindow:
         self.p1.setClipToView(True)
         self.p1.setRange(xRange=[-100, 0])
 
-        self.curves = [
-            CurvePlotter(self.p1.plot(pen='r')),
-            CurvePlotter(self.p1.plot(pen='b')),
-            CurvePlotter(self.p2.plot(pen='r')),
-            CurvePlotter(self.p2.plot(pen='b'))
-        ]
+        self.p2.setDownsampling(mode='peak')
+        self.p2.setClipToView(True)
+        self.p2.setRange(xRange=[-100, 0])
+
+        colors = "bgrcmyw"
+
+        self.volt_curves = [CurvePlotter(self.p1.plot(pen=c)) for c in colors]
+        self.curr_curves = [CurvePlotter(self.p2.plot(pen=c)) for c in colors]
 
         self.timer = pg.QtCore.QTimer()
         self.timer.timeout.connect(self.data_poll)
-        self.timer.start(50)
+        self.timer.start(1)
 
         proxy = QtGui.QGraphicsProxyWidget()
         # button = QtGui.QPushButton('button')
@@ -111,9 +113,15 @@ class GraphWindow:
 
     def data_poll(self):
         if not self.queue.empty():
-            recv = self.queue.get_nowait()
-            for n, i in enumerate(recv):
-                self.curves[n].add_point(i)
+            voltages, currents = self.queue.get_nowait()
+            for n, i in enumerate(voltages):
+                if n == 0:
+                    continue
+
+                self.volt_curves[n].add_point(i)
+
+            for n, i in enumerate(currents):
+                self.curr_curves[n].add_point(i)
 
         else:
             pass
@@ -139,3 +147,4 @@ class GraphWindow:
 if __name__ == '__main__':
     g = GraphWindow()
     g.event_loop()
+
