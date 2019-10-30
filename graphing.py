@@ -81,6 +81,7 @@ class GraphWindow:
         #    whenever it is full.
         self.p1 = self.win.addPlot(title="Voltages")
         self.p2 = self.win.addPlot(title="Currents")
+        self.p4 = self.win.addPlot(title="Temperature and Humidity")
 
         # Use automatic downsampling and clipping to reduce the drawing load
         self.p1.setDownsampling(mode='peak')
@@ -91,10 +92,15 @@ class GraphWindow:
         self.p2.setClipToView(True)
         self.p2.setRange(xRange=[-100, 0])
 
-        colors = "bgrcmyw"
+        self.p4.setDownsampling(mode='peak')
+        self.p4.setClipToView(True)
+        self.p4.setRange(xRange=[-100, 0])
+
+        colors = ["b", "g", "r", "c", "m", "y", "w", (0.5, 0.5, 0.5, 1.0)]  #"bgrcmywk"
 
         self.volt_curves = [CurvePlotter(self.p1.plot(pen=c)) for c in colors]
         self.curr_curves = [CurvePlotter(self.p2.plot(pen=c)) for c in colors]
+        self.temp_hum_curves = [CurvePlotter(self.p4.plot(pen=c)) for c in colors[0:2]]
 
         self.timer = pg.QtCore.QTimer()
         self.timer.timeout.connect(self.data_poll)
@@ -113,7 +119,7 @@ class GraphWindow:
 
     def data_poll(self):
         if not self.queue.empty():
-            voltages, currents = self.queue.get_nowait()
+            voltages, currents, temp_hum = self.queue.get_nowait()
             for n, i in enumerate(voltages):
                 if n == 0:
                     continue
@@ -122,6 +128,10 @@ class GraphWindow:
 
             for n, i in enumerate(currents):
                 self.curr_curves[n].add_point(i)
+
+            if temp_hum is not None:
+                for n, i in enumerate(temp_hum):
+                    self.temp_hum_curves[n].add_point(i)
 
         else:
             pass

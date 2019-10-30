@@ -21,7 +21,7 @@ import threading
 class Main:
     def __init__(self):
         self.graph_window = GraphWindow(self.command_callback_helper)
-        self.controller = Controller(lambda volt, current: self.graph_window.add_data((volt, current)))
+        self.controller = Controller(lambda volt, current, env: self.graph_window.add_data((volt, current, env)))
 
         self.serial_thread = threading.Thread(target=self.controller.read_loop)
         self.serial_thread.start()

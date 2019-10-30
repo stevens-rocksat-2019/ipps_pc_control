@@ -40,7 +40,9 @@ class Controller:
         for i in current_data[1:]:
             current_data[0] += i
 
-        self.data_callback(voltage_data, current_data)
+        temp_hum = [tx.envEvent.temp, tx.envEvent.humidity] if tx.HasField("envEvent") else None
+
+        self.data_callback(voltage_data, current_data, temp_hum)
 
         if tx.HasField("powerEvent"):
             # TODO: add some kind of dialog in the future
@@ -52,7 +54,8 @@ class Controller:
 
 
 def get_serial_port():
-    return list(list_ports.grep("USB"))[0].device
+    #return list(list_ports.grep("USB"))[0].device
+    return list(list_ports.grep("usbmodem"))[0].device
 
 class SerialConnection:
 
